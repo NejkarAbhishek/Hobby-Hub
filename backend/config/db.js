@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect("mongodb://127.0.0.1:27017/CommunityWebsite", {
+    const conn = await mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/CommunityWebsite", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });

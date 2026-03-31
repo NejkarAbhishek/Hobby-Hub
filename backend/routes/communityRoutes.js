@@ -15,18 +15,7 @@ import multer from "multer";
 import path from "path";
 import fs from "fs";
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    const folderPath = "communityImages/"; // Folder for community images
-    if (!fs.existsSync(folderPath)) {
-      fs.mkdirSync(folderPath, { recursive: true });
-    }
-    cb(null, folderPath); // Save the images in the "communityImages" folder
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Unique file name based on timestamp
-  },
-});
+const storage = multer.memoryStorage(); // Save image to memory buffer
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = /jpeg|jpg|png|gif/; // Allowed image formats

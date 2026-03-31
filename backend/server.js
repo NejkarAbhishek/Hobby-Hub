@@ -12,22 +12,20 @@ dotenv.config();
 connectDB();
 
 const app = express();
-app.use(cors());
-app.use(express.json());
-const __dirname = path.resolve();
-app.use(
-  "/profileImages",
-  express.static(path.join(__dirname, "./profileImages"))
-);
-app.use(
-  "/communityImages",
-  express.static(path.join(__dirname, "./communityImages"))
-);
+
+app.use(cors({
+  origin: process.env.FRONTEND_URL || "*" // Allow specified frontend or all origins
+}));
+
+app.use(express.json({ limit: "10mb" })); // Increased limit for Base64 image payload if sent via JSON.
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+
+// Removed local static file serving. Images are served directly as Base64 strings from MongoDB.
 
 app.use("/api/users", userRoutes);
 app.use("/api/community", communityRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api", contactRoutes);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

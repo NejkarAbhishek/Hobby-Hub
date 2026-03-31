@@ -9,7 +9,12 @@ import Chat from "../models/Chat.js";
 // Create a new community
 export const createCommunity = async (req, res) => {
   const { name, description } = req.body;
-  const image = req.file ? req.file.path.replace("\\", "/") : "";
+  
+  let image = "";
+  if (req.file) {
+    const b64 = Buffer.from(req.file.buffer).toString("base64");
+    image = `data:${req.file.mimetype};base64,${b64}`;
+  }
 
   try {
     const newCommunity = await Community.create({
@@ -239,7 +244,8 @@ export const updateCommunityProfile = async (req, res) => {
       return res.status(400).json({ message: "No file uploaded." });
     }
 
-    const image = path.normalize(req.file.path);
+    const b64 = Buffer.from(req.file.buffer).toString("base64");
+    const image = `data:${req.file.mimetype};base64,${b64}`;
 
     // Update the community profile image in the database
     const updateCommunity = await Community.findByIdAndUpdate(
@@ -247,9 +253,6 @@ export const updateCommunityProfile = async (req, res) => {
       { image },
       { new: true }
     );
-
-    // Fix: Use correct variable for image replacement
-    updateCommunity.image = updateCommunity.image.replace(/\\/g, "/");
 
     // Populate the updated community with createdBy and members details
     const populatedCommunity = await Community.findById(communityId)
