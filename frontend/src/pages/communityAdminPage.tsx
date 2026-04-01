@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar"; 
 import "../styles/communityAdminPage.css";
 import { SERVER_PATHNAME } from "@utils/urls";
 
@@ -75,7 +74,7 @@ const CommunityAdminPage = () => {
               <Link to={`/communityAdminPage/community/${community.id}`} className="community-link">
                 {community.image ? (
                   <img
-                    src={`${SERVER_PATHNAME}/${community.image.replace(/\\/g, '/')}`}
+                    src={community.image.startsWith("data:") ? community.image : `${SERVER_PATHNAME}/${community.image.replace(/\\/g, '/')}`}
                     alt={community.name}
                     className="community-list-image"
                   />
