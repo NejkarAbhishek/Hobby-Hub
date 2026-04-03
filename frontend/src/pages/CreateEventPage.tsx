@@ -11,7 +11,7 @@ const CreateEventPage = () => {
   const navigate = useNavigate();
 
   // const [status, setStatus] = useState("CheckedIn");
-  const [status, setStatus] = useState("CheckedIn");
+  const [status] = useState("CheckedIn");
   const [location, setLocation] = useState("");
   const [resource, setResource] = useState("");
   const [address, setAddress] = useState("");
