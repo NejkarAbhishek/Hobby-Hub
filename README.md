@@ -1,118 +1,115 @@
-# Hobby Hub
+<div align="center">
+  <img src="./frontend/public/vite.svg" alt="Logo" width="80" height="80">
 
-**Master's Capstone Project**
+  <h3 align="center">HobbySpot (Hobby Hub)</h3>
 
-A full‑stack platform that connects hobby enthusiasts by enabling community creation, event organization, and seamless user interactions.
+  <p align="center">
+    A robust MERN stack platform for organizing communities, members, and scheduled events!
+    <br />
+    <br />
+    <a href="https://hobby-hub-h8wb.vercel.app/">View Live Deployment</a>
+  </p>
+</div>
 
-## Table of Contents
-- [Features](#features)
-- [Technologies](#technologies)
-- [Architecture](#architecture)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-  - [Running the Application](#running-the-application)
-- [Project Structure](#project-structure)
-- [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
-- [License](#license)
+---
 
-## Features
-- User Authentication (Register, Login, Profile Management)
-- Community Management (Create, View, Join Hobby Communities)
-- Event Scheduling (Create, Browse, RSVP to Hobby Events)
-- Contact Form for Inquiries
-- Image Uploads for Profiles and Community Banners
-- Responsive UI built with React and Tailwind CSS
+## 📖 About The Project
 
-## Technologies
-- **Frontend:** React, TypeScript, Vite, Redux Toolkit, Tailwind CSS
-- **Backend:** Node.js, Express, MongoDB, Mongoose, JWT, bcrypt.js, Multer
+HobbySpot is a specialized social platform meticulously crafted to bridge the gap between community leaders, business owners, and general hobbyists. With distinct Role-Based Access Control (RBAC), the platform cleanly separates operational control from the end-user browsing experience.
 
-## Architecture
-The application follows a standard client‑server model:
-1. **Frontend (React + Vite)** makes HTTP requests to the backend API.
-2. **Backend (Express + MongoDB)** handles authentication, business logic, and data persistence.
-3. **MongoDB** stores user, community, and event data.
+### 👥 Role-Based Capabilities
 
-## Getting Started
+The platform revolves around four distinct ecosystem roles:
+
+1. **User**: Can browse available communities throughout the platform, request to join them, and interact directly with content and scheduled events.
+2. **Community Admin**: Operates dedicated hubs. They have specialized dashboards authorizing them to create new communities, manage membership rosters, and approve incoming user requests.
+3. **Business Owner**: Focuses exclusively on event planning. Empowered to create, schedule, and map physical/remote resources to unique events targeting the hobby communities.
+4. **Admin**: The architectural overseer. They track all active users, community counts, and have explicit revocation (deletion) authority over accounts acting out of line.
+
+### 📸 Application Showcase
+
+| Registration | Dashboard & Navigation |
+| --- | --- |
+| ![Registration Screen](./screenshots/register.png) | ![Dashboard Overview](./screenshots/dashboard.png) |
+| *Intuitive registration forcing strict role selection* | *Clean sidebar navigation utilizing Material UI* |
+
+<div align="center">
+  <img src="./screenshots/add_community.png" width="800" alt="Add Community">
+  <br>
+  <em>Community Admins building dedicated groups (Image uploads are fully optional natively)</em>
+</div>
+
+---
+
+## 🛠 Built With
+
+* **Frontend:** React 18, Vite, TS, Redux Toolkit, Tailwind CSS, Material UI (MUI)
+* **Backend:** Node.js, Express.js
+* **Database:** MongoDB (Mongoose)
+* **Authentication:** JWT (JSON Web Tokens) & Bcrypt
+
+---
+
+## 🚀 Getting Started Locally
+
+To get a local copy up and running, follow these simple steps.
 
 ### Prerequisites
-- Node.js (v14 or higher) & npm
-- MongoDB (running locally or accessible via a connection string)
 
-### Installation
+You will need the following installed:
+* [Node.js](https://nodejs.org/en/) (v16+)
+* [npm](https://www.npmjs.com/)
+* [MongoDB locally](https://www.mongodb.com/try/download/community) or a cloud MongoDB Atlas URI.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/hobby-hub.git
-   cd hobby-hub
-   ```
+### 1. Backend Setup (API Server)
 
-2. **Setup Backend**
+1. Open a new terminal and navigate to the backend directory:
    ```bash
    cd backend
-   npm install
    ```
-   - By default, the MongoDB URI is set to `mongodb://127.0.0.1:27017/CommunityWebsite` in `config/db.js`.
-   - To use a different URI, update the connection string in `config/db.js` or implement a `.env` file and modify the code accordingly.
-
-3. **Setup Frontend**
+2. Install the necessary NPM packages:
    ```bash
-   cd ../frontend
    npm install
    ```
+3. Create your local environment file:
+   ```bash
+   cp .env.example .env
+   ```
+   *Make sure your `.env` contains the following matching structure:*
+   ```env
+   PORT=5000
+   MONGODB_URI=mongodb://127.0.0.1:27017/CommunityWebsite
+   FRONTEND_URL=http://localhost:5173
+   JWT_SECRET=your_super_secret_jwt_string
+   ```
+4. Start the development server!
+   ```bash
+   npm start
+   ```
+   *The server should report it is running on port 5000 and successfully connected to MongoDB.*
 
-### Configuration
-- **Backend:**
-  - Edit `backend/config/db.js` to point to your MongoDB instance.
-- **Frontend:**
-  - In `frontend/src/utils/urls.ts`, set `SERVER_PATHNAME` to your backend URL (e.g., `http://localhost:5000`).
+### 2. Frontend Setup (React App)
 
-### Running the Application
+1. Open a **second separate terminal** and enter the frontend directory:
+   ```bash
+   cd frontend
+   ```
+2. Install the dependencies via npm:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file pointing to your local API.
+   ```bash
+   echo "VITE_API_BASE_URL=http://localhost:5000" > .env
+   ```
+4. Start the Vite development build:
+   ```bash
+   npm run dev
+   ```
 
-- **Backend**
-  ```bash
-  cd backend
-  npm start
-  ```
-  The server will run on `http://localhost:5000`.
+Your browser should output local addresses generated by Vite, typically `http://localhost:5173/`. Open it in your browser and start testing!
 
-- **Frontend**
-  ```bash
-  cd frontend
-  npm run dev
-  ```
-  The client will be available at `http://localhost:5173`.
+---
 
-## Project Structure
-```
-hobby-hub/
-├── backend/
-│   ├── config/
-│   │   └── db.js
-│   ├── controllers/
-│   ├── routes/
-│   ├── communityImages/
-│   ├── server.js
-│   └── package.json
-└── frontend/
-    ├── public/
-    ├── src/
-    ├── README.md
-    └── package.json
-```
-
-## API Endpoints
-- **Users:** `/api/users` (register, login, profile)
-- **Communities:** `/api/community` (create, read, update, delete)
-- **Events:** `/api/events` (create, read, update, delete)
-- **Contact:** `/api` (submit contact forms)
-
-## Contributing
-Contributions are welcome! Please fork the repository, create a new branch, and submit a pull request.
-
-## License
-This project is licensed under the MIT License.
-
+## 💡 Notes for Testing
+When testing locally, it is highly recommended you create 4 distinct users initially—one for each role (Admin, User, CommunityAdmin, and BusinessOwner)—to truly map out and experience the platform's isolated feature sets.

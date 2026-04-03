@@ -133,7 +133,7 @@ const AdminDashboardPage = () => {
                 <td className="border-b px-4 py-2">{user.name}</td>
                 <td className="border-b px-4 py-2">{user.email}</td>
                 <td className="border-b px-4 py-2">{user.role}</td>
-                <tr className="border-b px-4 py-2">
+                <td className="border-b px-4 py-2">
                   {user.role !== "Admin" && (
                     <div
                       className="m-4 cursor-pointer rounded-sm bg-red-500 p-2 text-white hover:bg-red-600"
@@ -144,7 +144,7 @@ const AdminDashboardPage = () => {
                       Remove User
                     </div>
                   )}
-                </tr>
+                </td>
               </tr>
             ))}
           </tbody>

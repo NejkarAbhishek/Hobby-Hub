@@ -17,8 +17,8 @@ const AddCommunityPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !description || !image) {
-      setMessage("All fields are required.");
+    if (!name || !description) {
+      setMessage("Name and description are required.");
       return;
     }
 
